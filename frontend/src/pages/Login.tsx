@@ -32,10 +32,11 @@ const Login = () => {
     setLoading(true);
     try {
       await login(data.email, data.password);
+      // Small delay to ensure state is persisted
+      await new Promise(resolve => setTimeout(resolve, 100));
       navigate('/dashboard');
     } catch (err: any) {
       setError(err.response?.data?.error || 'Login failed. Please try again.');
-    } finally {
       setLoading(false);
     }
   };

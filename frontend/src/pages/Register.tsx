@@ -37,10 +37,11 @@ const Register = () => {
     setLoading(true);
     try {
       await registerUser(data.email, data.password, data.name);
+      // Small delay to ensure state is persisted
+      await new Promise(resolve => setTimeout(resolve, 100));
       navigate('/dashboard');
     } catch (err: any) {
       setError(err.response?.data?.error || 'Registration failed. Please try again.');
-    } finally {
       setLoading(false);
     }
   };
