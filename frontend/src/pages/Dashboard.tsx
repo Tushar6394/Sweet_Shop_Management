@@ -19,6 +19,17 @@ const Dashboard = () => {
   const [filteredSweets, setFilteredSweets] = useState<Sweet[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
+
+  // Safety check
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-sweet-600">Please log in to continue</p>
+        </div>
+      </div>
+    );
+  }
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,11 +48,14 @@ const Dashboard = () => {
   const loadSweets = async () => {
     try {
       setLoading(true);
+      setError('');
       const data = await sweetsApi.getAll();
       setSweets(data);
       setFilteredSweets(data);
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to load sweets');
+      console.error('Error loading sweets:', err);
+      const errorMessage = err.response?.data?.error || err.message || 'Failed to load sweets';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -127,9 +141,12 @@ const Dashboard = () => {
     setIsModalOpen(true);
   };
 
-  const openRestockModal = (sweet: Sweet) => {
-    setSelectedSweet(sweet);
-    setIsRestockModalOpen(true);
+  const openRestockModal = (id: number) => {
+    const sweet = sweets.find(s => s.id === id);
+    if (sweet) {
+      setSelectedSweet(sweet);
+      setIsRestockModalOpen(true);
+    }
   };
 
   return (

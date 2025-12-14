@@ -23,13 +23,13 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set, get) => ({
+    (set, get): AuthState => ({
       user: null,
       token: null,
       isAuthenticated: false,
       _hasHydrated: false,
       
-      setHasHydrated: (state) => {
+      setHasHydrated: (state: boolean) => {
         set({
           _hasHydrated: state,
         });
@@ -69,8 +69,8 @@ export const useAuthStore = create<AuthState>()(
         delete axios.defaults.headers.common['Authorization'];
       },
 
-      isAdmin: () => {
-        const state = useAuthStore.getState();
+      isAdmin: (): boolean => {
+        const state = get();
         return state.user?.role === 'admin';
       },
     }),
