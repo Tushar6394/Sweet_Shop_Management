@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-sweet-50 via-pink-50 to-purple-50 min-h-screen;
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+@layer components {
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-xl;
+  }
+  
+  .sweet-card {
+    @apply glass-effect rounded-2xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-sweet-500 to-sweet-600 text-white font-semibold py-3 px-6 rounded-xl 
+           shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-sweet-600 font-semibold py-3 px-6 rounded-xl border-2 border-sweet-500
+           shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border-2 border-sweet-200 focus:border-sweet-500 
+           focus:ring-2 focus:ring-sweet-200 outline-none transition-all duration-200
+           bg-white/50 backdrop-blur-sm;
+  }
+}
+
