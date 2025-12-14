@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { useForm } from 'react-hook-form';
@@ -20,9 +20,16 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 
 const Register = () => {
   const navigate = useNavigate();
-  const { register: registerUser } = useAuthStore();
+  const { register: registerUser, isAuthenticated } = useAuthStore();
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState(false);
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
 
   const {
     register,
@@ -37,8 +44,7 @@ const Register = () => {
     setLoading(true);
     try {
       await registerUser(data.email, data.password, data.name);
-      // Small delay to ensure state is persisted
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // State is updated synchronously, navigate immediately
       navigate('/dashboard');
     } catch (err: any) {
       setError(err.response?.data?.error || 'Registration failed. Please try again.');
