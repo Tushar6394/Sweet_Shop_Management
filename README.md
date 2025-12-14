@@ -141,7 +141,73 @@ _To be added after implementation_
 
 ## 🤖 My AI Usage
 
-_This section will be completed after development to document AI tool usage throughout the project._
+Throughout the development of this project, I leveraged AI tools extensively to accelerate development, improve code quality, and learn best practices. Here's a detailed breakdown:
+
+### AI Tools Used
+
+1. **Cursor AI (Primary Assistant)**
+   - Used for generating boilerplate code for models, controllers, and services
+   - Assisted with TypeScript type definitions and interfaces
+   - Helped with test case generation following TDD principles
+   - Generated API route structures and middleware implementations
+   - Created React components with proper TypeScript typing
+   - Assisted with Tailwind CSS styling and responsive design patterns
+
+2. **GitHub Copilot (Code Completion)**
+   - Provided intelligent code completions while writing tests
+   - Suggested test cases and edge cases I might have missed
+   - Helped with error handling patterns
+   - Assisted with form validation logic
+
+### How AI Was Used
+
+#### Backend Development
+- **Database Models**: AI helped generate the initial structure for User and Sweet models with proper TypeScript interfaces
+- **Service Layer**: Used AI to create service classes following SOLID principles, with proper error handling
+- **Test Generation**: AI generated comprehensive test suites for models, services, and routes, helping me achieve high test coverage
+- **Authentication**: AI assisted with JWT implementation, password hashing patterns, and middleware creation
+- **API Routes**: Generated route structures with proper validation and error handling
+
+#### Frontend Development
+- **Component Structure**: AI helped design reusable React components with proper prop typing
+- **State Management**: Assisted with Zustand store setup and persistence configuration
+- **Form Handling**: Generated form validation schemas using Zod and React Hook Form integration
+- **UI Design**: AI suggested modern UI patterns including glassmorphism effects, animations, and responsive layouts
+- **API Integration**: Helped structure API client with proper TypeScript types and error handling
+
+#### Code Quality
+- **Type Safety**: AI ensured consistent TypeScript usage throughout the codebase
+- **Error Handling**: Suggested comprehensive error handling patterns
+- **Code Organization**: Helped structure the project following best practices
+
+### Reflection on AI Impact
+
+**Positive Impacts:**
+1. **Speed**: Development was significantly faster, especially for boilerplate code and repetitive patterns
+2. **Learning**: AI suggestions helped me learn new patterns and best practices
+3. **Quality**: AI caught potential bugs and suggested improvements I might have missed
+4. **Consistency**: AI helped maintain consistent coding style across the project
+5. **Testing**: AI-generated tests helped achieve comprehensive coverage and catch edge cases
+
+**Challenges:**
+1. **Review Required**: AI-generated code always needed careful review and sometimes refactoring
+2. **Context Understanding**: Sometimes AI suggestions didn't perfectly match the project context
+3. **Over-reliance Risk**: Had to ensure I understood the code, not just copy-paste
+
+**Best Practices Followed:**
+- Always reviewed and understood AI-generated code before committing
+- Used AI for inspiration but implemented custom logic where needed
+- Tested all AI-generated code thoroughly
+- Maintained clear commit messages documenting AI assistance
+- Ensured all code follows project standards and requirements
+
+### Ethical Considerations
+
+- All AI-generated code was reviewed, tested, and customized for this project
+- No code was directly copied from other repositories
+- AI was used as a tool to enhance productivity, not replace understanding
+- All commits properly attribute AI assistance as co-author
+- The final codebase represents my understanding and implementation of the requirements
 
 ## 📝 License
 

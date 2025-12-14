@@ -11,7 +11,7 @@
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
     "lint": "eslint src --ext .ts",
-    "migrate": "node-pg-migrate"
+    "migrate": "node scripts/migrate.js"
   },
   "keywords": ["sweet-shop", "api", "express", "typescript"],
   "author": "",
