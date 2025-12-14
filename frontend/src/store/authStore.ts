@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import axios from 'axios';
 
 interface User {
@@ -13,6 +13,8 @@ interface AuthState {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
+  _hasHydrated: boolean;
+  setHasHydrated: (state: boolean) => void;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name: string) => Promise<void>;
   logout: () => void;
@@ -21,10 +23,22 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       token: null,
       isAuthenticated: false,
+      _hasHydrated: false,
+      
+      setHasHydrated: (state) => {
+        set({
+          _hasHydrated: state,
+        });
+        // Initialize axios headers after hydration
+        const currentState = get();
+        if (currentState.token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${currentState.token}`;
+        }
+      },
 
       login: async (email: string, password: string) => {
         const response = await axios.post('/api/auth/login', { email, password });
@@ -62,20 +76,14 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'auth-storage',
+      storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+        if (state?.token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
+        }
+      },
     }
   )
 );
-
-// Initialize axios defaults if token exists
-const token = localStorage.getItem('auth-storage');
-if (token) {
-  try {
-    const parsed = JSON.parse(token);
-    if (parsed.state?.token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${parsed.state.token}`;
-    }
-  } catch (e) {
-    // Ignore parse errors
-  }
-}
 
